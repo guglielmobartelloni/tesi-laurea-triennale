@@ -33,7 +33,7 @@
 \newcommand{\myVersion}{Version 0.1\xspace}
 %--------------------------------------------------------------
 \usepackage[italian]{babel}
-\usepackage[latin1]{inputenc} 
+\usepackage[utf8]{inputenc} 
 \usepackage[T1]{fontenc} 
 \usepackage[square,numbers]{natbib} 
 \usepackage[fleqn]{amsmath}  
@@ -43,6 +43,8 @@
 \usepackage{caption}
 \usepackage{appendix}
 \usepackage{siunitx}
+\usepackage{natbib}
+
 %--------------------------------------------------------------
 \usepackage{dia-classicthesis-ldpkg}
 %\usepackage{classicthesis}
@@ -113,7 +115,9 @@ parts]{classicthesis}
 \end{flushright}
 \cleardoublepage
 \include{esercizi}
-\include{Chapters/bibliografia}
+% \include{Chapters/bibliografia}
+\bibliographystyle{ieeetr}
+\bibliography{biblio}
 %--------------------------------------------------------------
 \end{document}
 %--------------------------------------------------------------
