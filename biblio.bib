@@ -1,8 +1,15 @@
-@inproceedings{MBH21,
-  author    = {Möller, Felix and Botache, Diego and Huseljic, Denis and Heidecker, Florian and Bieshaar, Maarten and Sick, Bernhard},
-  booktitle = {{Proc. of CVPR SAIAD Workshop}},
-  title     = {{Out-of-distribution Detection and Generation using Soft Brownian Offset Sampling and Autoencoders}},
-  year      = 2021
+@inproceedings{sbo,
+  title = {Out-of-Distribution {{Detection}} and {{Generation}} Using {{Soft Brownian Offset Sampling}} and {{Autoencoders}}},
+  booktitle = {2021 {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
+  author = {Moller, Felix and Botache, Diego and Huseljic, Denis and Heidecker, Florian and Bieshaar, Maarten and Sick, Bernhard},
+  year = {2021},
+  month = jun,
+  pages = {46--55},
+  publisher = {{IEEE}},
+  address = {{Nashville, TN, USA}},
+  doi = {10.1109/CVPRW53098.2021.00014},
+  abstract = {Deep neural networks often suffer from overconfidence which can be partly remedied by improved outof-distribution detection. For this purpose, we propose a novel approach that allows for the generation of outof-distribution datasets based on a given in-distribution dataset. This new dataset can then be used to improve out-of-distribution detection for the given dataset and machine learning task at hand. The samples in this dataset are with respect to the feature space close to the in-distribution dataset and therefore realistic and plausible. Hence, this dataset can also be used to safeguard neural networks, i.e., to validate the generalization performance. Our approach first generates suitable representations of an in-distribution dataset using an autoencoder and then transforms them using our novel proposed Soft Brownian Offset method. After transformation, the decoder part of the autoencoder allows for the generation of these implicit out-of-distribution samples. This newly generated dataset then allows for mixing with other datasets and thus improved training of an out-of-distribution classifier, increasing its performance. Experimentally, we show that our approach is promising for time series using synthetic data. Using our new method, we also show in a quantitative case study that we can improve the out-of-distribution detection for the MNIST dataset. Finally, we provide another case study on the synthetic generation of out-ofdistribution trajectories, which can be used to validate trajectory prediction algorithms for automated driving.},
+  isbn = {978-1-66544-899-4},
+  langid = {english},
+  file = {/Users/samurai/Zotero/storage/7QEXAEQR/Moller et al. - 2021 - Out-of-distribution Detection and Generation using.pdf}
 }
-
-
