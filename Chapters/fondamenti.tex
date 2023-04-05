@@ -1,0 +1,41 @@
+\chapter{Fondamenti}
+
+\section{Intrusion Detection System}
+
+Gli Intrusion Detection System (IDS) sono delle soluzioni hardware o software che, posti all'interno di una rete o di un sistema, rilevano eventuali minacce. 
+
+Nel nostro caso ci occupiamo dei Netowrk Intrusion Detection Systems (NIDS), che rilevano intrusioni in una rete analizzando il suo traffico.
+
+Solitamente gli IDS vengono classificati in base al tipo di analisi che effettuano e come questi rilevano le minacce. Ne esistono di tre tipi principali:
+
+\begin{itemize}
+    \item Signature-Based (SD)
+    \item Anomaly-based (AD)
+    \item Stateful Protocol Analysis (SPA)
+\end{itemize}
+
+\subsection{Signature-Based}
+
+Questo tipo di rilevamento utilizza la firma di un attacco per poterlo rilevare. Quindi conoscendo questa firma, gli IDS la comparano agli eventi catturati della rete. Dato che questi attacchi hanno di una conoscenza pregressa sono anche chiamati Knowledge-based.
+
+
+\subsection{Anomaly-based}
+
+Questo tipo di rilevamento utilizza un modello di riferimento di come la rete normalmente opera. Quindi, se viene rilevato un evento che non è coerente con il modello di riferimento, allora viene segnalato come anomalia. Questo tipo di rilevamento infatti è chiamato anche Behavior-Based.
+
+
+\subsection{Stateful-Protocol-Analysis}
+
+In questo caso gli IDS conoscono lo stato e le specifiche del protocollo utilizzato. Vengono quindi rilevati degli eventi che non rispettano gli standard del protocollo, generalmente quelli da specifica e.g. IEEE.
+
+La principale distinzione da gli AD è che gli SPA non conoscono il comportamento di una specifica rete ma solo quello standard.
+
+\section{Machine Learning per Riderevamento Intrusioni}
+
+
+\section{XGboost}
+
+
+\section{Dataset}
+
+
