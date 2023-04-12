@@ -3,7 +3,7 @@
 \section{Intrusion Detection System}
 
 
-Un intrusione può essere definita come un evento che causa danni ad un sistema informatico \cite{SurveyIntrusionDetection2019}.
+Un intrusione può essere definita come un evento che compromette integrità, confidenzialità e la disponibilità di un sistema informatico \cite{biermannComparisonIntrusionDetection2001}.
 
 Gli Intrusion Detection System (IDS) sono delle soluzioni hardware o software che, posti all'interno di una rete o di un sistema, rilevano eventuali intrusioni. 
 
@@ -38,11 +38,11 @@ Questo tipo di rilevamento utilizza la firma di un attacco per poterlo rilevare.
 
 \subsection{Anomaly-based Detection}
 
-Gli AIDS sono stati introdotti per sopperire alle mancanze del Signature-Based Detection.
-Questo tipo di rilevamento utilizza un modello che rappresenta il normale comportamento della rete. Quindi, se viene rilevato un evento che non è coerente con il modello di riferimento, allora viene segnalata un'anomalia. Questo tipo di rilevamento è chiamato anche Behavior-Based.
+Gli Anomaly-based Intrusion Detection Systems (AIDS) sono stati introdotti per sopperire alle mancanze del Signature-Based Detection.
+Questo tipo di rilevamento utilizza un modello che rappresenta il normale comportamento della rete. Se viene rilevato un evento che non è coerente con il modello di riferimento, allora viene segnalata un'anomalia. Questo tipo di rilevamento è chiamato anche Behavior-Based.
 
 
-Il principale vantaggio di questo tipo di IDS è la possibilità di rilevare gli attacchi zero-day \cite{UnsupervisedAlgorithmsDetect2021}, in quanto questi sistemi, non si basano sulla firma dei dati o su regole rigide. Inoltre un altro vantaggio è che risulta essere difficile, per un eventuale criminale, capire quale sia il comportamento normale di un utente senza produrre un segnale da parte del sistema \cite{SurveyIntrusionDetection2019}.
+Il principale vantaggio di questo tipo di IDS è la possibilità di rilevare gli attacchi zero-day \cite{UnsupervisedAlgorithmsDetect2021}, in quanto questi sistemi, non si basano sulla firma dei dati o su regole rigide. Tra gli altri vantaggi si ha che risulta essere difficile, per un eventuale criminale, capire quale sia il comportamento normale di un utente senza produrre un segnale da parte del sistema \cite{SurveyIntrusionDetection2019}.
 
 
 \cite{SurveyIntrusionDetection2019} Gli AIDS possono essere classificati in base al metodo utilizzato per la loro implementazione:
@@ -83,30 +83,49 @@ Potrebbe sembrare che gli AD e gli SPA siano simili, in realtà i primi, conosco
 \section{Machine Learning per rilevamento di intrusioni}
 
 
-\subsection{Machine Learning}
-
-Il Machine Learning (ML) è un sottoinsieme dell'intelligenza artificiale che permette ai sistemi di imparare da dati e di migliorare le loro prestazioni nel tempo senza essere esplicitamente programmati. Nel caso degli Intrusion Detection Systems, gli algoritmi di ML permettono di rilevare in maniera precisa e rapida attacchi per grandi quantità di dati in poco tempo ~\cite{saranyaPerformanceAnalysisMachine2020}.
+Il Machine Learning (ML) è un sottoinsieme dell'intelligenza artificiale e permette ai sistemi di imparare dai dati e di migliorare le loro prestazioni nel tempo senza essere esplicitamente programmati. Nel caso degli Intrusion Detection Systems, gli algoritmi di ML permettono di rilevare in maniera precisa e rapida gli attacchi per grandi quantità di dati in poco tempo ~\cite{saranyaPerformanceAnalysisMachine2020}.
 
 
-Solitamente gli questi algoritmi sono divisi in:
-
+Solitamente questi algoritmi sono divisi in:
 
 \begin{itemize}
     \item Supervised
     \item Unsupervised 
-    \item Semi-supervised
 \end{itemize}
 
 Inoltre gli algoritmi di ML possono essere usati per la classificazione o per la predizione.
 
-La classificazione è un problema di apprendimento, in cui il modello viene addestrato su un dataset con classi conosciute e cerca di trovare una relazione tra le caratteristiche dei dati e le classi stesse. 
-Un classificatore mappa una funzione: 
+Il processo di classificazione si compone di vari passi tra cui:
+
+\begin{itemize}
+    \item Preprocessamento dei dati
+    \item Definizione dei dati di test
+    \item Scelta dell'algoritmo
+    \item Impostazione dei parametri
+    \item Addestramento del modello
+    \item Test del modello
+\end{itemize}
+
+come mostrato in figura \ref{fig:ml_process}.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]{img/ml_process.png}
+    \caption{
+        Il processo del Supervised Machine Learning, da \cite{babcockuniversitySupervisedMachineLearning2017}
+    }
+    \label{fig:ml_process}
+\end{figure}
+
+
+Il modello viene addestrato su un dataset con classi conosciute e cerca di trovare una relazione tra le caratteristiche dei dati (features) e le classi stesse. 
+In particolare un classificatore mappa una funzione: 
 
 \[
 f(x_1,\ldots x_S) = \hat y
 \]
 
-che assegna uno scalare, facente parte di un insieme $C$ di elementi disgiunti (le classi), ad un insieme di $S$ elementi vettoriali (le caratteristiche). ~\cite{hoffmannBenchmarkingClassificationRegression2019}
+che assegna uno scalare facente parte di un insieme $C$ di elementi disgiunti (le classi), ad un insieme di $S$ elementi vettoriali (le caratteristiche). ~\cite{hoffmannBenchmarkingClassificationRegression2019}
 
 
 Nella regressione invece, si cerca di approssimare la funzione: 
@@ -115,30 +134,78 @@ Nella regressione invece, si cerca di approssimare la funzione:
 f(x_1,\ldots x_S) = y
 \]
 
-a partire dalle caratteristiche. La funzione $f$ è approssimata utilizzando varie tecniche di interpolazione, estrapolazione, analisi di regressione e curve fitting. ~\cite{hoffmannBenchmarkingClassificationRegression2019}
+a partire dalle caratteristiche. La funzione $f$ è approssimata utilizzando varie tecniche di interpolazione, estrapolazione, analisi di regressione e curve fitting ~\cite{hoffmannBenchmarkingClassificationRegression2019}.
+
+
+Nel nostro caso utilizzeremo un algoritmo di classificazione.
+
 
 
 
 \subsubsection{Supervised Machine Learning}
 
 Il Supervised Machine Learning utilizza un dataset con classi completamente etichettate cercando di trovare una relazione tra gli elementi del dataset e le classi di questi dati. 
-La classificazione è composta da due parti: l'addestramento e il test. L'addestramento utilizza una variabile di controllo, mentre nel test, si fa predire parte del dataset al modello controllando poi i risultati. Ci sono vari algoritmi di questo tipo e.g. Support Vector Machine (SVM), Naïve Bayes, Reti Neurali, Alberi di Decisione, Random Fores.
+I dataset utilizzati per l'addestramento, necessitano di essere catalogati precedentemente.
+Ci sono vari algoritmi di questo tipo e.g. Support Vector Machine (SVM), Naïve Bayes, Reti Neurali, Alberi di Decisione, Random Forest.
 
 
 \subsubsection{Unsupervised Machine Learning}
 
-In questo caso, gli algoritmi di ML non hanno un dataset con classi etichettate. Questi algoritmi cercano di trovare delle relazioni tra i dati, cercando di raggrupparli in base a delle caratteristiche comuni.
+In questo caso, gli algoritmi di ML non hanno un dataset con classi etichettate. Questi algoritmi traovano delle relazioni tra i dati, cercando di raggrupparli in base a delle caratteristiche comuni.
 
-L'unsupervised machine learning mostra però basse prestazioni per quanto riguarda il rilevamento quindi non possono essere utilizzati come principale strunento per gli IDS. Il motivo di questo scarso rendimento è dovuto al fatto che è molto probabile generare dei Falsi Positivi (vengono rilevati attacchi quando in realtà non cene sono) oppure generare dei Falsi Negativi (non venongo rilevati attacchi quando in realtà ce ne sono) questo va a degradare le performance generali del modello. ~\cite{UnsupervisedAlgorithmsDetect2021} 
+L'unsupervised machine learning mostra però basse prestazioni per quanto riguarda il rilevamento quindi non possono essere utilizzati come principale strumento per gli IDS. Il motivo di questo scarso rendimento è dovuto al fatto che è molto probabile generare dei Falsi Positivi (vengono rilevati attacchi quando in realtà non cene sono) oppure generare dei Falsi Negativi (non vengono rilevati attacchi quando in realtà ce ne sono) questo va a degradare le performance generali del modello.
 
-D'altra parte però questi modelli si sono dimostrati opinabilmente migliori per rilveare gli attacchi zero-day. ~\cite{UnsupervisedAlgorithmsDetect2021}
-
-
+D'altra parte però questi modelli si sono dimostrati opinabilmente migliori per rilveare gli attacchi zero-day. ~\cite{UnsupervisedAlgorithmsDetect2021}.
 
 
 \section{XGboost}
 
+XGBoost (eXtreme Gradient Boosting) è un algoritmo di Machine Learning che utilizza alberi di decisione per la classificazione e la regressione. 
+
+Nel mondo reale è utilizzato anche la predizione dei click per le pubblicità  ~\cite{hePracticalLessonsPredicting2014} e come algoritmo per le competizioni su Kaggle ~\cite{chenXGBoostScalableTree2016}.
+
+
+Il suo punto di forza principale è la grande scalabilità in tutti gli scenari. XGBoost ha prestazioni superiori di dieci volte rispetto alle soluzioni esistenti.
+Inoltre riesce a sfruttare al meglio la potenza di calcolo della macchina su cui viene eseguito ~\cite{chenXGBoostScalableTree2016}.
+È stato scelto XGBoost come algoritmo in questa tesi per i motivi sopra citati.
+
+\subsection{Alberi di Decisione}
+
+Nella sua parte fondamentale XGBoost utilizza gli alberi di decisione.
+
+Un albero di decisione è uno strumento relativamente semplice per classificare i dati dove vengono poste delle domande che riguardano le features. Ogni domanda è contenuta in un nodo dell'albero, ed oguno di questi punta ad un figlio che rappresenta una possibile risposta.
+In questo modo le domande formano una gerarchia (Figura \ref{fig:decision_tree}), codificata come un albero ~\cite{kingsfordWhatAreDecision2008}.
+
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]{img/albero_di_decisione.png}
+    \caption{
+        L'immagine mostra un esempio di albero di decisione di Carl Kingsford e Steven L Salzberg ~\cite{kingsfordWhatAreDecision2008}
+    }
+    \label{fig:decision_tree}
+\end{figure}
+
+
+
+L'algoritmo più conosciuto che utilizza alberi di decisione è il C4.5 ~\cite{salzbergC4ProgramsMachine1994}.
+
 
 \section{Dataset}
+
+I dataset sono un insieme di dati utilizzati per l'addestramento e il test dei modelli di ML. In questa tesi sono stati utilizzati tre dataset: ADFA-NET, CIDDS e CIC-IDS18.
+
+\subsection{ADFA-NET}
+
+ADFA è un dataset creato da un gruppo di ricerca dell'Università di New South Wales (Australia) nel 2013 e include dieci tipi di attacchi. Contiene in particolare attacchi di Brute Force, Java Based Meterpreter, Add new Superuser, Linux Meterpreter payload e attacchi alla C100 Webshell. ~\cite{sharafaldinGeneratingNewIntrusion2018}
+
+Questo è il più semplice dataset su cui sono stati effettuati i test.
+
+\subsection{CIDDS}
+
+
+\subsection{CIC-IDS18}
+
+È la versione aggiornata del dataset CIC-IDS2017. È stato creato da un gruppo di 
 
 
