@@ -12,7 +12,7 @@ Questo però ha portato a nuove problematiche, come ad esempio il fatto che i mo
 Un dataset contenente pacchetti di rete sarà composto per la maggior parte da pacchetti "normali", cioè pacchetti di traffico abituale e, per la restante parte, da pacchetti di attacchi. 
 I vari dataset sul traffico di rete presenti oggi però, non hanno una quantità sufficiente di attacchi per poter addestrare al meglio i modelli. 
 
-Un modello addestrato su un dataset con una percentuale di attacchi troppo bassa, non sarà in grado di rilevare bene gli attacchi.
+Un modello addestrato su un dataset con una percentuale di attacchi troppo bassa, non sarà in grado di rilevare bene gli attacchi ~\cite{gopalanBalancingApproachesML2021}.
 
 % In particolare i pacchetti "normali" fanno parte della comune distribuzione dei dati  mentre i pacchetti di attacchi sono fuori da questa distribuzione. Chiameremo quindi i primi, in-distribution (ID) samples, mentre i secondi, verranno chiamati out-of-distribution samples (OOD).
 Un metodo per sopperire a questa mancanza è quello di generare nuovi dati a partire da quelli già esistenti (Data Augmentation). I dati generati devono essere però sufficientemente differenti di modo da rappresentare meglio le anomalie che si hanno nella rete durante un attacco.
