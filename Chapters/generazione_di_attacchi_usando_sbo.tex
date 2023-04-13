@@ -1,35 +1,39 @@
 \chapter{Generazione di attacchi usando Soft Brownian Offset}
 
-In questo capitolo verranno presentate le tecniche utilizzate per generare i dati fuori dalla distribuzione (Out-of-distribution OOD) per l'addestramento del modello XGBoost. Saranno quindi illustrati i metodi.
+Parleremo inizalmente del processo di preparazione ed analisi dei dati, di come è stato utilizzato Soft Brownian Offset ed infine verranno illustrati i metodi di calcolo dell'accuratezza del modello.
 
-% Parleremo inizalmente del processo di preparazione ed analisi dei dati, di come è stato utilizzato Soft Brownian Offset ed infine verranno illustrati i metodi di calcolo dell'accuratezza del modello
-
-Per gestire e processare i dati è stato utilizzato il linguaggio di programmazione Python usando diverse librerie tra le quali possiamo trovare:
-
-\begin{itemize}
-    \item Pandas e Numpy, per la manipolazione dei dataset
-    \item Plotly, per la visualizzazione dei dati
-    \item UMAP, per la riduzione della dimensionalità dei dataset 
-    \item SBO, per la generazione dei dati fuori dalla distribuzione
-    \item XGBoost, il modello addestrato
-    \item Scikit-learn, per la valutazione del modello e per il preprocessamento dei dati
-\end{itemize}
-
-Tutto il codice che è stato utilizzato si trova su ~\cite{github}.
+Nel capitolo successivo verranno mostrati i risultati ottenuti.
 
 
 \section{Metodologie}
 
+Ogni dataset è stato analizzato, per capire quali fossero i dati più significativi per l'addestramento del modello. 
 
-\subsection{Analisi dei dati iniziali}
+È stato necessario filtrare alcune colonne che contenevano valori non numerici come, nel caso di CIC-IDS, la colonna "Timestamp" che includeva la data e l'ora del pacchetto. 
 
-\subsection{Generazione dei pacchetti}
+Inoltre le righe contenenti valori come "Inf" o "NaN" sono state modificate perché, se lasciate intatte, avrebbero causato errori durante la generazione dei dati out-of-distribution.
 
-\subsection{Addestramento del modello}
+Entrambi i dataset hanno una colonna "label" per indicare la tipologia del pacchetto, nello specifico, sono presenti le tipologie varie tipologie di attacchi e.g. "bruteForce", "dos", "pingScan", "portScan". Dato che, nel nostro caso, non ci interessa sapere nello specifico l'attacco del pacchetto, tutti gli atacchi, sono stati etichettati come "attack".
 
-\subsection{Metriche utilizzate}
+Dopo aver fatto queste operazione di preprocessamento, si è passati alla generazione dei sample OOD.
 
-\subsubsection{Accuracy}
+La prima prova effettuata è stata quella di utilizzare Soft Brownian Offset a partire dal dataset completo senza distinzioni di tipologia di pacchetto, per vedere se era possibile in questo modo, generare degli attacchi verosimili. Questa soluzione però genera dei pacchetti che sono troppo vicini, in termini di caratteristiche, a quelli normali perché i dataset hanno una quantità molto maggiore di dati normali rispetto a quelli di attacchi. Abbiamo quindi dovuto scartare questo metodo.
 
-\subsubsection{Metthews}
+Un altro metodo possibile che non è stato approfondito è quello di generare i pacchetti come sopra, filtrando i pacchetti tropo "vicini" (sempre in termini di caratteristiche) ai pacchetti normali. Si ottiene così un dataset che ha la giusta quantità di dati out-of-distribution e potrebbe migliorare l'apprendimento di un modello.
 
+Il metodo che invece abbiamo utilizzato e che  ottiene risultati buoni risultati è quello di utilizzare Soft Brownian Offset solo sui pacchetti di attacco, in questo modo si ottiene delle varianti dei pacchetti di attacco che riescono a migliorare il rilevamento da parte degli IDS.
+
+
+% \subsection{Analisi dei dati iniziali}
+%
+%
+% \subsection{Generazione dei pacchetti}
+%
+% \subsection{Addestramento del modello}
+%
+% \subsection{Metriche utilizzate}
+%
+% \subsubsection{Accuracy}
+%
+% \subsubsection{Metthews}
+%
