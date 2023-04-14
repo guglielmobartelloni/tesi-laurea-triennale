@@ -11,9 +11,18 @@ Di seguito verranno mostrati i più significativi riguardanti la tesi prodotti a
     \item Scikit-learn, per la valutazione del modello e per il preprocessamento dei dati
 \end{itemize}
 
-Tutto il codice che è stato utilizzato si trova su \href{https://github.com/guglielmobartelloni/thesis-utils}{Github}~\cite{github} .
+Tutto il codice utilizzato si trova su \href{https://github.com/guglielmobartelloni/thesis-utils}{Github}~\cite{github} .
 
 \section{Preparazione dei dati}
+
+Come detto nel capitolo \ref{chap:generazione_di_attacchi_usando_sbo}, i dati i dati non possono essere utilizzati come sono ma hanno bisogno di un preprocessamento. In particolare, sono stati eliminati i dati non numerici attraverso il metodo di Pandas "pandas.DataFrame.replace" come segue:
+
+
+\begin{python}
+input_data.replace([np.inf, -np.inf], -1, inplace=True)
+input_data.replace(np.nan, -1, inplace=True)
+\end{python}
+
 
 \section{Generazione dei pacchetti}
 
