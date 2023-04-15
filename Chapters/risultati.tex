@@ -24,7 +24,7 @@ input_data.replace([np.inf, -np.inf], -1, inplace=True)
 input_data.replace(np.nan, -1, inplace=True)
 \end{python}
 
-Si estrae poi la colonna label dal dataset, che dovrà essere utilizzata successivamente per il modello, e si procede al one hot encoding dei dati attraverso il medoto "pandas.get\_dummies":
+Si estrae poi la colonna label dal dataset, che dovrà essere utilizzata successivamente per il modello, e si procede al one hot encoding dei dati attraverso il metodo "pandas.get\_dummies":
 
 \begin{python}
 input_data = pd.get_dummies(input_data)
@@ -42,7 +42,7 @@ attacks_packets.replace(attacks_packets_types, 'attack', inplace=True)
 
 \section{Generazione dei pacchetti}
 
-Si è generato i nuovi pacchetti attraverso la libreria python SBO fornita da ~\cite{sbo}. Il metodo "soft\_brownian\_offset" della libreria richiede:
+Si è generato i nuovi pacchetti attraverso la libreria Python SBO fornita da ~\cite{sbo}. Il metodo "soft\_brownian\_offset" della libreria richiede:
 
 \begin{itemize}
     \item i dati da cui generare i nuovi pacchetti

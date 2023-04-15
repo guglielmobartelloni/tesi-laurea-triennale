@@ -7,6 +7,7 @@
 \contentsline {figure}{\numberline {2}{\ignorespaces Il processo del Supervised Machine Learning, da \cite {babcockuniversitySupervisedMachineLearning2017} \relax }}{13}{figure.caption.4}%
 \contentsline {figure}{\numberline {3}{\ignorespaces L'immagine mostra un esempio di albero di decisione di Carl Kingsford e Steven L Salzberg ~\cite {kingsfordWhatAreDecision2008} \relax }}{16}{figure.caption.5}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {4}{\ignorespaces Schema che rappresenta l'approccio utilizzato da SBO. Inizialmente i dati ID vengono usati per addestrare l'autoencoder e successivamente vengono generati i dati OOD tramite SBO. Questi poi vengono decodificati dall'AE per integrarsi nel dataset iniziale. Infine, viene addestrata una rete neurale, nel nostro caso invece, utilizzeremo XGBoost. \relax }}{18}{figure.caption.6}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
