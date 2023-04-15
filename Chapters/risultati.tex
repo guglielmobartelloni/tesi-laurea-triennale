@@ -1,4 +1,5 @@
 \chapter{Risultati}
+\label{chap:risultati}
 
 Di seguito verranno mostrati i più significativi riguardanti la tesi prodotti atraverso del codice Python utilizzando diverse librerie, tra cui:
 
@@ -23,8 +24,41 @@ input_data.replace([np.inf, -np.inf], -1, inplace=True)
 input_data.replace(np.nan, -1, inplace=True)
 \end{python}
 
+Si estrae poi la colonna label dal dataset, che dovrà essere utilizzata successivamente per il modello, e si procede al one hot encoding dei dati attraverso il medoto "pandas.get\_dummies":
+
+\begin{python}
+input_data = pd.get_dummies(input_data)
+\end{python}
+
+Infine si cambia le etichette dei vari attacchi in "attack":
+
+\begin{python}
+attacks_packets_types = ['Bot', 'DDOS attack-HOIC', 'DDOS attack-LOIC-UDP',
+                            'DoS attacks-Hulk', 'DoS attacks-SlowHTTPTest', 'FTP-BruteForce',
+                            'Infilteration', 'SSH-Bruteforce']
+attacks_packets.replace(attacks_packets_types, 'attack', inplace=True)
+\end{python}
+
 
 \section{Generazione dei pacchetti}
+
+Si è generato i nuovi pacchetti attraverso la libreria python SBO fornita da ~\cite{sbo}. Il metodo "soft\_brownian\_offset" della libreria richiede:
+
+\begin{itemize}
+    \item i dati da cui generare i nuovi pacchetti
+    \item d\_min ($d^{-}$)
+    \item d\_off ($d^{+}$)
+    \item softness ($\sigma$)
+    \item numero di pacchetti da generare
+\end{itemize}
+
+\begin{python}
+    data_ood = soft_brownian_offset(data_i, d_min_, d_off_,
+                                        softness=softness_,
+                                        n_samples=n_ood_samples)
+\end{python}
+
+
 
 \section{Addestramento del modello}
 

@@ -1,9 +1,19 @@
 \chapter{Generazione di attacchi usando Soft Brownian Offset}
 \label{chap:generazione_di_attacchi_usando_sbo}
 
-Parleremo inizialmente del processo di preparazione ed analisi dei dati, di come è stato utilizzato Soft Brownian Offset ed infine verranno illustrati i metodi di calcolo dell'accuratezza del modello.
+La procedura adottata per questa tesi è la seguente:
 
-Nel capitolo successivo verranno mostrati i risultati ottenuti.
+\begin{itemize}
+    \item Preparazione dei dataset
+    \item Generazione dei pacchetti Out of Distribution (OOD)
+    \item Analisi dei dati ottenuti
+    \item Addestramento del modello
+    \item Valutazione del modello
+\end{itemize}
+
+
+
+Nel capitolo \ref{chap:risultati} verranno mostrati i risultati ottenuti.
 
 
 \section{Metodologie}
@@ -20,9 +30,9 @@ Dopo aver fatto queste operazione di preprocessamento, si è passati alla genera
 
 La prima prova effettuata è stata quella di utilizzare Soft Brownian Offset a partire dal dataset completo senza distinzioni di tipologia di pacchetto, per vedere se era possibile in questo modo, generare degli attacchi verosimili. Questa soluzione però genera dei pacchetti che sono troppo vicini, in termini di caratteristiche, a quelli normali perché i dataset hanno una quantità molto maggiore di dati normali rispetto a quelli di attacchi. Abbiamo quindi dovuto scartare questo metodo.
 
-Un altro metodo possibile che non è stato approfondito è quello di generare i pacchetti come sopra, filtrando i pacchetti troppo "vicini" (sempre in termini di caratteristiche) ai pacchetti normali. Si ottiene così un dataset che ha la giusta quantità di dati out-of-distribution e potrebbe migliorare l'apprendimento di un modello.
+Un altro metodo possibile che non è stato approfondito è quello di generare i pacchetti come sopra, filtrando quelli troppo "vicini" (sempre in termini di caratteristiche) ai pacchetti normali. Si ottiene così un dataset che ha la giusta quantità di dati out-of-distribution e potrebbe migliorare l'apprendimento di un modello.
 
-Il metodo che invece abbiamo utilizzato e che  ottiene risultati buoni risultati è quello di utilizzare Soft Brownian Offset solo sui pacchetti di attacco, in questo modo si ottiene delle varianti dei pacchetti di attacco che riescono a migliorare il rilevamento da parte degli IDS.
+Il metodo che invece si è utilizzato e che  ottiene buoni risultati è quello di utilizzare Soft Brownian Offset solo sui pacchetti di attacco, in questo modo si ottiene delle varianti dei pacchetti di attacco che riescono a migliorare il rilevamento da parte degli IDS.
 
 Confronteremo inoltre i risultati con una generazione di pacchetti effettuata a partire da solo traffico normale evidenziando le differenze che si hanno con i due approcci.
 
