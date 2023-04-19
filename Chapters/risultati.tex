@@ -53,10 +53,101 @@ Si è generato i nuovi pacchetti attraverso la libreria Python SBO fornita da ~\
 \end{itemize}
 
 \begin{python}
-    data_ood = soft_brownian_offset(data_i, d_min_, d_off_,
-                                        softness=softness_,
-                                        n_samples=n_ood_samples)
+data_ood = soft_brownian_offset(data_i, d_min_, d_off_,
+                                    softness=softness_,
+                                  n_samples=n_ood_samples)
 \end{python}
+
+
+\section{Rappresentazione grafica dei dati}
+ 
+In questa sezione esploreremo i dati generati da Soft Brownian Offset graficamente utilizzando la libreria UMAP ~\cite{umap} per ridurre la dimensionalità dei dati. Data la grande quantità di colonne che i dataset possiedeno, la riduzione della dimensionalità dei dati è necessaria per permettere la loro rappresnezione su un piano in due dimensioni. 
+
+E' stato scelto UMAP, rispetto alla sua alternativa TSNE, per la velocità di esecuzione e per la capacità di rappresentare i dati in maniera più accurata ~\cite{umap}.
+I test sono stati eseguiti con i seguenti parametri:
+
+\begin{python}
+umap_2d = UMAP(n_components=2, init='random', random_state=0,
+               n_neighbors=70, min_dist=.8)
+\end{python}
+
+che risulta avere il giusto compromesso tra velocità e accuratezza.
+
+Tramite la rappresentazione grafica dei dati è possibile notare in maniera chiara se i pacchetti generati sono più simili a quelli di attacco oppure a quelli normali. L'obbiettivo è quello di generare dati che siano graficamente vicini ai pacchetti di attacco ma lontani da quelli normali, questo infatti si traduce, come vedremo nelle sezioni successive, in un addestramento del modello migliore. Le tecniche di generazioni più efficaci quindi, saranno quelle che riescono a generare pacchetti non troppo distanti da quelli di attacco già presenti nel dataset.
+
+I dati inoltre sono stati generati attraverso varie impostazioni di SBO manipolando i parametri $d^{-}$, $d^{+}$ e $\sigma$.
+
+Analizziamo quindi i due approcci citati nel capitolo \ref{chap:generazione_di_attacchi_usando_sbo} ossia la generazione dei dati partendo da solo pacchetti normali e la generazione dei dati partendo da solo pacchetti di attacco.
+
+\subsection{Generazione a partire dai pacchetti normali}
+
+Questo metodo di generazione dei pacchetti, in uno scenario reale, è quello che potrebbe essere utilizzato maggiormente, in quanto solitamente non si hanno a disposizione tanti dati su attacchi informatici all'interno della propria rete, ma solo dati di traffico comune. In figura ~\ref{fig:gen_ADFA_norm_1} si nota come questo metodo non sia molto efficace infatti, ci sono delle evidenti sovrapposizioni tra pacchetti normali e pacchetti generati mentre, in corrispondenza degli attacchi, questo non accade. In figura ~\ref{fig:gen_ADFA_norm_2} troviamo un esempio di generazione di 25 000 pacchetti OOD e anche in questo caso, non ci sono miglioramenti. Le figure successive ~\ref{fig:gen_CICIDS_norm_1} e ~\ref{fig:gen_CICIDS_norm_2} sono invece i test eseguiti su CICIDS che ottengono i medesimi risultati.
+
+E' evidente che i pacchetti generati, siano troppo simili ai pacchetti normali e troppo dissimili da quelli di attacco. Il modello addestrato con questi dati troverà difficoltà nella classificazione.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]{img/gen_test/adfa/ADFANET_normal_only_reduced_ood.png}
+    \caption{
+      (Dataset ADFANET) In giallo i pacchetti di attacco, in viola i pacchetti generati ed in verde i pacchetti normali. Questi grafici sono stati prodotti a partire da una porzione di dati ristretta per permettere una migliore visualizzazione.
+    }
+    \label{fig:gen_ADFA_norm_1}
+\end{figure}
+
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]{img/gen_test/adfa/ADFANET_normal_only_reduced_ood_zoomed.png}
+    \caption{
+      (Dataset ADFANET) Questa figura presenta i dati della figura \ref{fig:gen_ADFA_norm_1} ingranditi per permettere una migliore visualizzazione.
+    }
+    \label{fig:gen_ADFA_norm_1_zoomed}
+\end{figure}
+
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]{img/gen_test/adfa/ADFANET_normal_only_25k_ood.png}
+    \caption{
+      (Dataset ADFANET) Sono stati utilizzati 75 000 pacchetti in totale. Anche in questo caso si nota i medesimi problemi delle figure \ref{fig:gen_ADFA_norm_1} e \ref{fig:gen_ADFA_norm_1_zoomed}.
+    }
+    \label{fig:gen_ADFA_norm_2}
+\end{figure}
+
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]{img/gen_test/adfa/ADFANET_normal_only_25k_ood_zoomed.png}
+    \caption{
+      (Dataset ADFANET) Versione ingrandita di \ref{fig:gen_ADFA_norm_2}.
+    }
+    \label{fig:gen_ADFA_norm_2_zoomed}
+\end{figure}
+
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]{img/gen_test/cicids/CICIDS18_normal_only_25p_ood.png}
+    \caption{
+      (Dataset CICIDS) Si nota la maggiore complessita di questo dataset, ma si presentano gli stessi problemi di ADFANET.
+    }
+    \label{fig:gen_CICIDS_norm_1}
+\end{figure}
+
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]{img/gen_test/cicids/CICIDS18_normal_only_12k_ood.png}
+    \caption{
+      (Dataset CICIDS) Questa immagine contiene grafici con più di 62 000 pacchetti. Nel grafico in alto a sinistra si nota come i pacchetti generati siano sovrapposti a quelli normali.
+    }
+    \label{fig:gen_CICIDS_norm_2}
+\end{figure}
+
+
+
+
+\subsection{Generazione a partire dai pacchetti attacco}
 
 
 
