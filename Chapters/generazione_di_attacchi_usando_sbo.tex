@@ -24,19 +24,52 @@ Ogni dataset è stato analizzato, per capire quali fossero i dati più significa
 
 Inoltre le righe contenenti valori come "Inf" o "NaN" sono state modificate perché, se lasciate intatte, avrebbero causato errori durante la generazione dei dati out-of-distribution.
 
-Entrambi i dataset hanno una colonna "label" per indicare la tipologia del pacchetto, nello specifico, sono presenti le tipologie varie tipologie di attacchi e.g. "bruteForce", "dos", "pingScan", "portScan". Dato che, nel nostro caso, non ci interessa sapere nello specifico l'attacco del pacchetto, tutti gli attacchi, sono stati etichettati come "attack".
+Entrambi i dataset hanno una colonna "label" per indicare la tipologia del pacchetto, nello specifico, sono presenti le varie tipologie di attacchi e.g. "bruteForce", "dos", "pingScan", "portScan". Dato che, nel nostro caso, non ci interessa sapere nello specifico l'attacco del pacchetto, tutti gli attacchi, sono stati etichettati come "attack".
 
 Dopo aver fatto queste operazione di preprocessamento, si è passati alla generazione dei sample OOD.
 
-La prima prova effettuata è stata quella di utilizzare Soft Brownian Offset a partire dal dataset completo senza distinzioni di tipologia di pacchetto, per vedere se era possibile in questo modo, generare degli attacchi verosimili. Questa soluzione però genera dei pacchetti che sono troppo vicini, in termini di caratteristiche, a quelli normali perché i dataset hanno una quantità molto maggiore di dati normali rispetto a quelli di attacchi. Abbiamo quindi dovuto scartare questo metodo.
+In particolare possiamo distinguere vari casi sia, per la generazione dei pacchetti sia, per l'addestramento del modello. Infatti, a seconda delle combinazioni di pacchetti generati e dati di addestramento, si ottengono risultati differenti. La tabella INSERIRE TABELLA riassume le varie combinazioni.
+
+\begin{table}\centering\setlength\tabcolsep{3.5pt}\renewcommand\arraystretch{1.25}
+  \noindent\makebox[\textwidth]{%
+    \begin{tabular}{|l|*{3}{c|}}
+      \hline
+      \diagbox[width=.2\textwidth, height=1cm]{ Gen. }{Addes.}
+                   & N+OOD & N+AV+OOD & N+AV \\
+      \hline
+      N+AV OOD & N+(N+AV OOD) & N+AV+(N + AV OOD) & \\
+      \hline
+      N OOD & N+N OOD & N+AV+N OOD & \\
+      \hline
+      AV OOD & N+AV OOD & N+AV+AV OOD & \\
+      \hline
+    \end{tabular}
+  }%
+\end{table}
+
+
+
+La prima prova effettuata è stata quella di utilizzare Soft Brownian Offset a partire dal dataset completo senza distinzioni di tipologia di pacchetto, per vedere se era possibile in questo modo, generare degli attacchi verosimili. Questa soluzione però genera dei pacchetti che sono troppo vicini, in termini di caratteristiche, a quelli normali perché i dataset hanno una quantità molto maggiore di dati normali rispetto a quelli di attacchi.
 
 Un altro metodo possibile che non è stato approfondito è quello di generare i pacchetti come sopra, filtrando quelli troppo "vicini" (sempre in termini di caratteristiche) ai pacchetti normali. Si ottiene così un dataset che ha la giusta quantità di dati out-of-distribution e potrebbe migliorare l'apprendimento di un modello.
 
-Il metodo che invece si è utilizzato e che  ottiene buoni risultati è quello di utilizzare Soft Brownian Offset solo sui pacchetti di attacco, in questo modo si ottiene delle varianti dei pacchetti di attacco che riescono a migliorare il rilevamento da parte degli IDS.
+Un ulteriore metodo è quello di utilizzare solo i pacchetti normali per la generazione, questo rappresenta maggiormente uno scenario reale in quanto solitamente i dati di attacco a disposizione sono pochi.
 
-Confronteremo inoltre i risultati con una generazione di pacchetti effettuata a partire da solo traffico normale evidenziando le differenze che si hanno con i due approcci.
+Il metodo che invece che  ottiene buoni risultati è quello di utilizzare Soft Brownian Offset solo sui pacchetti di attacco, in questo modo si ottiene delle varianti dei pacchetti di attacco che riescono a migliorare il rilevamento da parte degli IDS.
 
-Per il calcolo delle performance del modello XGBoost, a seguito dell'addestramento, si è utilizzato il coefficiente di Matthews.
+Evidenzieremo quindi le differenze che ci sono tra i vari approcci sopracitati.
+
+Per ogni metodo, la generazione tramite Soft Brownian Offset verrà eseguita quattro volte attraverso un ciclo for per testare i vari parametri, linearmente intervallati, di d\_min ($d^{-}$) e softness ($\sigma$). Il valore di d\_off ($d^{+}$) invece sarà calcolato come $d_{min} \cdot 0.7$.
+
+A seguito della generazione dei pacchetti, questi devono essere uniti al dataset iniziale. Quindi i pacchetti generati verranno etichettati come pacchetti di attacco.
+
+Per avere un'idea più concreta della qualità della generazione, si procede con la visualizzazione grafica del nuovo dataset tramite l'algoritmo di riduzione di dimensionalità UMAP. In questa fase si può già capire come il modello potrebbe performare in quanto, pacchetti generati molto vicini a pacchetti di attacco, dovrebbero risultare in un modello più performante.
+
+Dunque si procede all'addestramento del modello XGBoost con gli iperparametri impostati sui valori di fabbrica.
+
+Infine si valuta il modello utilizzando la metrica "Metthew's correlation coefficient" prendendo come dati di test, il dataset iniziale (senza pacchetti OOD).
+
+Le metriche cosi raccolte vengono poi confrontate per capire quale di questi metodi sia il più efficace.
 
 
 
