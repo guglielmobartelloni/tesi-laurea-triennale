@@ -8,13 +8,14 @@
 \contentsline {figure}{\numberline {3}{\ignorespaces L'immagine mostra un esempio di albero di decisione di Carl Kingsford e Steven L Salzberg ~\cite {kingsfordWhatAreDecision2008} \relax }}{15}{figure.caption.5}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4}{\ignorespaces Schema che rappresenta l'approccio utilizzato da SBO. Inizialmente i dati ID vengono usati per addestrare l'autoencoder e successivamente vengono generati i dati OOD tramite SBO. Questi poi vengono decodificati dall'AE per integrarsi nel dataset iniziale. Infine, viene addestrata una rete neurale, nel nostro caso invece, utilizzeremo XGBoost. \relax }}{18}{figure.caption.6}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Schema che rappresenta il modello autoencoder. Da ~\cite {baldiAutoencodersUnsupervisedLearning} \relax }}{19}{figure.caption.7}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5}{\ignorespaces (Dataset ADFANET) In giallo i pacchetti di attacco, in viola i pacchetti generati ed in verde i pacchetti normali. Questi grafici sono stati prodotti a partire da una porzione di dati ristretta per permettere una migliore visualizzazione. \relax }}{26}{figure.caption.8}%
-\contentsline {figure}{\numberline {6}{\ignorespaces (Dataset ADFANET) Questa figura presenta i dati della figura \ref {fig:gen_ADFA_norm_1} ingranditi per permettere una migliore visualizzazione. \relax }}{26}{figure.caption.9}%
-\contentsline {figure}{\numberline {7}{\ignorespaces (Dataset ADFANET) Sono stati utilizzati 75 000 pacchetti in totale. Anche in questo caso si nota i medesimi problemi delle figure \ref {fig:gen_ADFA_norm_1} e \ref {fig:gen_ADFA_norm_1_zoomed}. \relax }}{27}{figure.caption.10}%
-\contentsline {figure}{\numberline {8}{\ignorespaces (Dataset ADFANET) Versione ingrandita di \ref {fig:gen_ADFA_norm_2}. \relax }}{27}{figure.caption.11}%
-\contentsline {figure}{\numberline {9}{\ignorespaces (Dataset CICIDS) Si nota la maggiore complessita di questo dataset, ma si presentano gli stessi problemi di ADFANET. \relax }}{28}{figure.caption.12}%
-\contentsline {figure}{\numberline {10}{\ignorespaces (Dataset CICIDS) Questa immagine contiene grafici con più di 62 000 pacchetti. Nel grafico in alto a sinistra si nota come i pacchetti generati siano sovrapposti a quelli normali. \relax }}{28}{figure.caption.13}%
+\contentsline {figure}{\numberline {6}{\ignorespaces (Dataset ADFANET) In giallo i pacchetti di attacco, in viola i pacchetti generati ed in verde i pacchetti normali. Questi grafici sono stati prodotti a partire da una porzione di dati ristretta per permettere una migliore visualizzazione. \relax }}{28}{figure.caption.9}%
+\contentsline {figure}{\numberline {7}{\ignorespaces (Dataset ADFANET) Questa figura presenta i dati della figura \ref {fig:gen_ADFA_norm_1} ingranditi per permettere una migliore visualizzazione. \relax }}{28}{figure.caption.10}%
+\contentsline {figure}{\numberline {8}{\ignorespaces (Dataset ADFANET) Sono stati utilizzati 75 000 pacchetti in totale. Anche in questo caso si nota i medesimi problemi delle figure \ref {fig:gen_ADFA_norm_1} e \ref {fig:gen_ADFA_norm_1_zoomed}. \relax }}{29}{figure.caption.11}%
+\contentsline {figure}{\numberline {9}{\ignorespaces (Dataset ADFANET) Versione ingrandita di \ref {fig:gen_ADFA_norm_2}. \relax }}{29}{figure.caption.12}%
+\contentsline {figure}{\numberline {10}{\ignorespaces (Dataset CICIDS) Si nota la maggiore complessita di questo dataset, ma si presentano gli stessi problemi di ADFANET. \relax }}{30}{figure.caption.13}%
+\contentsline {figure}{\numberline {11}{\ignorespaces (Dataset CICIDS) Questa immagine contiene grafici con più di 62 000 pacchetti. Nel grafico in alto a sinistra si nota come i pacchetti generati siano sovrapposti a quelli normali. \relax }}{30}{figure.caption.14}%
 \addvspace {10\p@ }
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

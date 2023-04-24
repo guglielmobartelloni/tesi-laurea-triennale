@@ -2,13 +2,13 @@
 
 Soft Brownian Offset (SBO) è un algoritmo per la generazione di dati sintetici fuori dalla distribuzione (Out of Distribution OOD). 
 
-È stato sviluppato da ~\cite{sbo} inizialmente per poter migliorare il rilevamento dei dati fuori dalla distribuzione, si pensi ad esempio nel caso dei cyber-physical systems (CPS) e.g. auto a guida autonoma, dove il rilevamento di eventi fuori dalla distribuzione è di vitale importanza ~\cite{yuhasEmbeddedOutofdistributionDetection2021}.
+È stato sviluppato da ~\cite{sbo} inizialmente per poter migliorare il rilevamento dei dati fuori dalla distribuzione, si pensi ad esempio nel caso dei cyber-physical systems (CPS) e.g. auto a guida autonoma, dove il rilevamento di eventi anomali è di vitale importanza ~\cite{yuhasEmbeddedOutofdistributionDetection2021}.
 
-Per questo scopo i dati generati necessitano di essere non troppo dissimili da quelli originali, perché altrimenti il modello potrebbe soffrire di "overconfidence" ~\cite{amodeiConcreteProblemsAI2016}
+Per questo scopo i dati generati necessitano di essere non troppo dissimili da quelli originali, perché altrimenti il modello potrebbe soffrire di "overconfidence" ~\cite{amodeiConcreteProblemsAI2016}.
 
-SBO si basa sul "Gaussian Hyperspheric Offset" che cerca di creare i dati OOD campionando attraverso una ipersfera attorno ai dati dentro la distribuzione (In Distribution IN).
+SBO si basa sul "Gaussian Hyperspheric Offset" che cerca di creare i dati OOD campionando attraverso una ipersfera attorno ai dati iniziali (In Distribution).
 
-Partendo da quest'ultimo algoritmo, SBO permette di utilizzare qualsiasi punto del dataset e traslarlo in modo da avere una certa distanza minima dagli altri punti. Dopodichè i punti vengono processati da un autoencoder (AE) addestrato su un particolare dataset. La figura \ref{fig:sbo_schema} mostra graficamente questo approccio. Nel nostro caso, non utilizzeremo una rete neurale bensì XGboost.
+Partendo da quest'ultimo algoritmo, SBO permette di utilizzare qualsiasi punto del dataset e traslarlo in modo da avere una certa distanza minima dagli altri punti. I dati vengono processati da un autoencoder (AE) addestrato su un particolare dataset. La figura \ref{fig:sbo_schema} mostra graficamente questo approccio. 
 
 
 \begin{figure}[htpb]
@@ -19,4 +19,34 @@ Partendo da quest'ultimo algoritmo, SBO permette di utilizzare qualsiasi punto d
     }
     \label{fig:sbo_schema}
 \end{figure}
+
+
+\section{Autoencoder} 
+
+Un autoencoder è una particolare rete neurale che ha il compito di codificare un input e comprimerlo in una rappresentazione rilevamente per poi decodificarlo e ricostruirlo nel modo più fedele possibile ~\cite{bankAutoencoders2021}.
+
+Il loro compito principale è quindi di imparare, in modo non supervisionato, una rappresentazione ridotta significativa dei dati.
+
+Il problema può essere formalmente definito ~\cite{baldiAutoencodersUnsupervisedLearning}, come trovare le funzioni $A$:$ R^{n} \rightarrow R^p$ (encoder) e $B$:$ R^{p} \rightarrow R^n$ (decoder) in modo che:
+
+\begin{center}
+$arg min_{A,B} E$[$\Delta$($x,  B$($A$($x$)))] \\
+\end{center}
+
+dove $E$ è la distribuzione di $x$ che ci si aspetta, e $\Delta$ è la funzione obbiettivo della ricostruzione, che misura la distanza tra l'output del decoder e l'input.
+
+La figura \ref{fig:ae_schema} mostra il processo del modello autoencoder.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]{img/ae_schema.png}
+    \caption{
+        Schema che rappresenta il modello autoencoder. Da ~\cite{baldiAutoencodersUnsupervisedLearning}
+    }
+    \label{fig:ae_schema}
+\end{figure}
+
+
+L'approccio utilizzato per Soft Brownian Offset è quello di addestrare un autoencoder sul dataset di partenza, ridurre lo spazio di lavoro utilizzando l'encoder, generare i dati OOD ed infine ricostruire il dataset attraverso il decoder.
+
 

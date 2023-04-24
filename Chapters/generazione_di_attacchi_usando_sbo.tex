@@ -24,11 +24,27 @@ Ogni dataset è stato analizzato, per capire quali fossero i dati più significa
 
 Inoltre le righe contenenti valori come "Inf" o "NaN" sono state modificate perché, se lasciate intatte, avrebbero causato errori durante la generazione dei dati out-of-distribution.
 
-Entrambi i dataset hanno una colonna "label" per indicare la tipologia del pacchetto, nello specifico, sono presenti le varie tipologie di attacchi e.g. "bruteForce", "dos", "pingScan", "portScan". Dato che, nel nostro caso, non ci interessa sapere nello specifico l'attacco del pacchetto, tutti gli attacchi, sono stati etichettati come "attack".
+Entrambi i dataset hanno una colonna "label" per indicare la classificazione del pacchetto, nello specifico, sono presenti le varie tipologie di attacchi e.g. "bruteForce", "dos", "pingScan", "portScan". Dato che, nel nostro caso, non ci interessa sapere nello specifico la catalogazione del pacchetto, tutti gli attacchi, sono stati etichettati come "attack".
 
 Dopo aver fatto queste operazione di preprocessamento, si è passati alla generazione dei sample OOD.
 
-In particolare possiamo distinguere vari casi sia, per la generazione dei pacchetti sia, per l'addestramento del modello. Infatti, a seconda delle combinazioni di pacchetti generati e dati di addestramento, si ottengono risultati differenti. La tabella INSERIRE TABELLA riassume le varie combinazioni.
+In particolare possiamo distinguere vari casi sia, per la generazione dei pacchetti sia, per l'addestramento del modello. Abbiamo infatti, tre tipologie di generazione:
+
+\begin{itemize}
+  \item Generazione a partire da soli pacchetti normali.
+  \item Generazione a partire da soli pacchetti di attacchi.
+  \item Generazione a partire sia da pacchetti normali che da pacchetti di attacchi.
+\end{itemize}
+
+Per l'addestramento abbiamo:
+
+\begin{itemize}
+  \item Addestramento del modello con i pacchetti normali e i pacchetti OOD.
+  \item Addestramento del modello con i pacchetti normali, i pacchetti OOD e i pacchetti di attacchi.
+  \item Addestramento del modello con i pacchetti normali e i pacchetti di attacchi.
+\end{itemize}
+
+Le combinazioni di addestramento e generazione danno luogo ad esiti diversi. La tabella \ref{tab:addes_gen} riassume le varie combinazioni.
 
 \begin{table}\centering\setlength\tabcolsep{3.5pt}\renewcommand\arraystretch{1.25}
   \noindent\makebox[\textwidth]{%
@@ -45,44 +61,36 @@ In particolare possiamo distinguere vari casi sia, per la generazione dei pacche
       \hline
     \end{tabular}
   }%
+\caption{\label{tab:addes_gen} Combinazioni di generazione dei pacchetti e addestramento del modello, dove N = pacchetti normali, AV = pacchetti di attacchi veri, OOD = pacchetti generati. Si trova poi AV OOD, N OOD, N+AV OOD, rispettivamente dati generati a partire da attacchi, dati generati a partire da pacchetti normali, dati generati a partire dal dataset completo}
 \end{table}
 
 
+Un metodo possibile che non è stato approfondito è quello di generare i pacchetti filtrando quelli troppo "vicini", in termini di caratteristiche, ai pacchetti normali. Si ottiene così un dataset che ha la giusta quantità di dati out-of-distribution e potrebbe migliorare l'apprendimento di un modello.
 
-La prima prova effettuata è stata quella di utilizzare Soft Brownian Offset a partire dal dataset completo senza distinzioni di tipologia di pacchetto, per vedere se era possibile in questo modo, generare degli attacchi verosimili. Questa soluzione però genera dei pacchetti che sono troppo vicini, in termini di caratteristiche, a quelli normali perché i dataset hanno una quantità molto maggiore di dati normali rispetto a quelli di attacchi.
+La prima prova effettuata è stata quella di utilizzare Soft Brownian Offset a partire dal dataset completo senza distinzioni di classificazione di pacchetto, per vedere se era possibile in questo modo, generare degli attacchi verosimili. Questa soluzione però genera dei pacchetti che sono troppo vicini, in termini di caratteristiche, a quelli normali perché i dataset hanno una quantità molto maggiore di dati normali rispetto a quelli di attacchi.
 
-Un altro metodo possibile che non è stato approfondito è quello di generare i pacchetti come sopra, filtrando quelli troppo "vicini" (sempre in termini di caratteristiche) ai pacchetti normali. Si ottiene così un dataset che ha la giusta quantità di dati out-of-distribution e potrebbe migliorare l'apprendimento di un modello.
+Un ulteriore metodo è quello di utilizzare solo i pacchetti normali per la generazione, questo rappresenta maggiormente uno scenario reale in quanto solitamente, i dati di attacco a disposizione sono pochi.
 
-Un ulteriore metodo è quello di utilizzare solo i pacchetti normali per la generazione, questo rappresenta maggiormente uno scenario reale in quanto solitamente i dati di attacco a disposizione sono pochi.
+Evidenzieremo quindi le differenze che ci sono tra i vari approcci.
 
-Il metodo che invece che  ottiene buoni risultati è quello di utilizzare Soft Brownian Offset solo sui pacchetti di attacco, in questo modo si ottiene delle varianti dei pacchetti di attacco che riescono a migliorare il rilevamento da parte degli IDS.
+Per ogni metodo, la generazione tramite Soft Brownian Offset verrà eseguita quattro volte attraverso un ciclo for per testare i vari parametri, linearmente intervallati, di d\_min ($d^{-}$) e softness ($\sigma$). Il valore di d\_off ($d^{+}$) invece sarà calcolato come $d_{min} \cdot 0.7$ come da documentazione.
 
-Evidenzieremo quindi le differenze che ci sono tra i vari approcci sopracitati.
+A seguito della generazione dei pacchetti, questi devono essere uniti al dataset iniziale e verranno etichettati come pacchetti di attacco.
 
-Per ogni metodo, la generazione tramite Soft Brownian Offset verrà eseguita quattro volte attraverso un ciclo for per testare i vari parametri, linearmente intervallati, di d\_min ($d^{-}$) e softness ($\sigma$). Il valore di d\_off ($d^{+}$) invece sarà calcolato come $d_{min} \cdot 0.7$.
+Per avere un'idea più concreta della qualità della generazione, si procede con la visualizzazione grafica del nuovo dataset così creato, tramite l'algoritmo di riduzione di dimensionalità UMAP. Data la grande quantità di colonne che i dataset possiedono, la riduzione della dimensionalità dei dati è necessaria per permettere la loro rappresentazione su un piano in due dimensioni. 
 
-A seguito della generazione dei pacchetti, questi devono essere uniti al dataset iniziale. Quindi i pacchetti generati verranno etichettati come pacchetti di attacco.
+E' stato scelto UMAP, rispetto alla sua alternativa TSNE, per la velocità di esecuzione ~\cite{umap}.
 
-Per avere un'idea più concreta della qualità della generazione, si procede con la visualizzazione grafica del nuovo dataset tramite l'algoritmo di riduzione di dimensionalità UMAP. In questa fase si può già capire come il modello potrebbe performare in quanto, pacchetti generati molto vicini a pacchetti di attacco, dovrebbero risultare in un modello più performante.
-
-Dunque si procede all'addestramento del modello XGBoost con gli iperparametri impostati sui valori di fabbrica.
-
-Infine si valuta il modello utilizzando la metrica "Metthew's correlation coefficient" prendendo come dati di test, il dataset iniziale (senza pacchetti OOD).
-
-Le metriche cosi raccolte vengono poi confrontate per capire quale di questi metodi sia il più efficace.
+Per i grafici è stata utilizzata la libreria Plotly per permettere l'esplorazione dei dati salvati in formato HTML.
 
 
+Dunque si procede all'addestramento di XGBoost con gli iperparametri impostati sui valori di fabbrica.
 
-% \subsection{Analisi dei dati iniziali}
-%
-%
-% \subsection{Generazione dei pacchetti}
-%
-% \subsection{Addestramento del modello}
-%
-% \subsection{Metriche utilizzate}
-%
-% \subsubsection{Accuracy}
-%
-% \subsubsection{Metthews}
-%
+Infine si valuta il modello utilizzando la metrica "Metthew's correlation coefficient" (MCC) prendendo come dati di test il dataset iniziale (senza pacchetti OOD).
+Si è scelto di utilizzare questa metrica per il calcolo delle prestazioni del modello in quanto, rispetto all'accuracy test, MCC è efficace quando si ha un dataset sbilanciato  ~\cite{chiccoAdvantagesMatthewsCorrelation2020} come nel nostro caso (abbiamo molti più pacchetti normali che pacchetti di attacchi).
+
+Le metriche raccolte per ogni strategia di generazione sono state poi confrontate, per capire così quali sono gli effetti delle generazioni.
+
+
+
+
