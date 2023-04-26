@@ -13,18 +13,18 @@ La procedura adottata per questa tesi è la seguente:
 
 
 
-Nel capitolo \ref{chap:risultati} verranno mostrati i risultati ottenuti.
+Nel capitolo~\ref{chap:risultati} verranno mostrati i risultati ottenuti.
 
 
 \section{Metodologie}
 
 Ogni dataset è stato analizzato, per capire quali fossero i dati più significativi per l'addestramento del modello. 
 
-È stato necessario filtrare alcune colonne che contenevano valori non numerici come, nel caso di CIC-IDS, la colonna "Timestamp" che includeva la data e l'ora del pacchetto. 
+È stato necessario filtrare alcune colonne che contenevano valori non numerici come, nel caso di CIC-IDS, la colonna ``Timestamp'' che includeva la data e l'ora del pacchetto.
 
-Inoltre le righe contenenti valori come "Inf" o "NaN" sono state modificate perché, se lasciate intatte, avrebbero causato errori durante la generazione dei dati out-of-distribution.
+Inoltre le righe contenenti valori come ``Inf'' o ``NaN'' sono state modificate perché, se lasciate intatte, avrebbero causato errori durante la generazione dei dati out-of-distribution.
 
-Entrambi i dataset hanno una colonna "label" per indicare la classificazione del pacchetto, nello specifico, sono presenti le varie tipologie di attacchi e.g. "bruteForce", "dos", "pingScan", "portScan". Dato che, nel nostro caso, non ci interessa sapere nello specifico la catalogazione del pacchetto, tutti gli attacchi, sono stati etichettati come "attack".
+Entrambi i dataset hanno una colonna ``Label'' per indicare la classificazione del pacchetto, nello specifico, sono presenti le varie tipologie di attacchi e.g. ``Bruteforce'', ``Dos'', ``PingScan'', ``PortScan''. Dato che, nel nostro caso, non ci interessa sapere nello specifico la catalogazione del pacchetto, tutti gli attacchi, sono stati etichettati come ``attack''.
 
 Dopo aver fatto queste operazione di preprocessamento, si è passati alla generazione dei sample OOD.
 
@@ -65,7 +65,7 @@ Le combinazioni di addestramento e generazione danno luogo ad esiti diversi. La 
 \end{table}
 
 
-Un metodo possibile che non è stato approfondito è quello di generare i pacchetti filtrando quelli troppo "vicini", in termini di caratteristiche, ai pacchetti normali. Si ottiene così un dataset che ha la giusta quantità di dati out-of-distribution e potrebbe migliorare l'apprendimento di un modello.
+Un metodo possibile che non è stato approfondito è quello di generare i pacchetti filtrando quelli troppo ``vicini'', in termini di caratteristiche, ai pacchetti normali. Si ottiene così un dataset che ha la giusta quantità di dati out-of-distribution e potrebbe migliorare l'apprendimento di un modello.
 
 La prima prova effettuata è stata quella di utilizzare Soft Brownian Offset a partire dal dataset completo senza distinzioni di classificazione di pacchetto, per vedere se era possibile in questo modo, generare degli attacchi verosimili. Questa soluzione però genera dei pacchetti che sono troppo vicini, in termini di caratteristiche, a quelli normali perché i dataset hanno una quantità molto maggiore di dati normali rispetto a quelli di attacchi.
 
@@ -73,11 +73,11 @@ Un ulteriore metodo è quello di utilizzare solo i pacchetti normali per la gene
 
 Evidenzieremo quindi le differenze che ci sono tra i vari approcci.
 
-Per ogni metodo, la generazione tramite Soft Brownian Offset verrà eseguita quattro volte attraverso un ciclo for per testare i vari parametri, linearmente intervallati, di d\_min ($d^{-}$) e softness ($\sigma$). Il valore di d\_off ($d^{+}$) invece sarà calcolato come $d_{min} \cdot 0.7$ come da documentazione.
+Per ogni metodo, la generazione tramite Soft Brownian Offset verrà eseguita quattro volte attraverso un ciclo ``for'' per testare i vari parametri, linearmente intervallati, di d\_min ($d^{-}$) e softness ($\sigma$). Il valore di d\_off ($d^{+}$) invece sarà calcolato come $d_{min} \cdot 0.7$ come da documentazione.
 
 A seguito della generazione dei pacchetti, questi devono essere uniti al dataset iniziale e verranno etichettati come pacchetti di attacco.
 
-Per avere un'idea più concreta della qualità della generazione, si procede con la visualizzazione grafica del nuovo dataset così creato, tramite l'algoritmo di riduzione di dimensionalità UMAP. Data la grande quantità di colonne che i dataset possiedono, la riduzione della dimensionalità dei dati è necessaria per permettere la loro rappresentazione su un piano in due dimensioni. 
+Per avere un'idea più concreta della qualità della generazione, si procede con la visualizzazione grafica del nuovo dataset così creato, tramite l'algoritmo di riduzione di dimensionalità UMAP. Data la grande quantità di colonne che i dataset possiedono, la riduzione della dimensionalità dei dati è necessaria per permettere la loro rappresentazione su un piano in due dimensioni.
 
 E' stato scelto UMAP, rispetto alla sua alternativa TSNE, per la velocità di esecuzione ~\cite{umap}.
 
@@ -90,7 +90,3 @@ Infine si valuta il modello utilizzando la metrica "Metthew's correlation coeffi
 Si è scelto di utilizzare questa metrica per il calcolo delle prestazioni del modello in quanto, rispetto all'accuracy test, MCC è efficace quando si ha un dataset sbilanciato  ~\cite{chiccoAdvantagesMatthewsCorrelation2020} come nel nostro caso (abbiamo molti più pacchetti normali che pacchetti di attacchi).
 
 Le metriche raccolte per ogni strategia di generazione sono state poi confrontate, per capire così quali sono gli effetti delle generazioni.
-
-
-
-
