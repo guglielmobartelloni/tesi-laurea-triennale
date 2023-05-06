@@ -53,15 +53,15 @@ Le combinazioni di addestramento e generazione danno luogo ad esiti diversi. La 
       \diagbox[width=.2\textwidth, height=1cm]{ Gen. }{Addes.}
                    & N+OOD & N+AV+OOD & N+AV \\
       \hline
-      N+AV OOD & N+(N+AV OOD) & N+AV+(N + AV OOD) & \\
+      $OOD_{CMP}$ & N+$OOD_{CMP}$ & N+AV+$OOD_{CMP}$ & / \\
       \hline
-      N OOD & N+N OOD & N+AV+N OOD & \\
+      $OOD_N$ & N+$OOD_N$ & N+AV+$OOD_N$ & / \\
       \hline
-      AV OOD & N+AV OOD & N+AV+AV OOD & \\
+      $OOD_{AV}$ & N+$OOD_{AV}$ & N+AV+$OOD_{AV}$ & / \\
       \hline
     \end{tabular}
-  }%
-\caption{\label{tab:addes_gen} Combinazioni di generazione dei pacchetti e addestramento del modello, dove N = pacchetti normali, AV = pacchetti di attacchi veri, OOD = pacchetti generati. Si trova poi AV OOD, N OOD, N+AV OOD, rispettivamente dati generati a partire da attacchi, dati generati a partire da pacchetti normali, dati generati a partire dal dataset completo}
+  }
+\caption{\label{tab:addes_gen} Combinazioni di generazione dei pacchetti e addestramento del modello, dove N = pacchetti normali, AV = pacchetti di attacchi veri, CMP = pacchetti normali + pacchetti di attacchi, OOD = pacchetti generati. Si trova poi AV OOD, N OOD, N+AV OOD, rispettivamente dati generati a partire da attacchi, dati generati a partire da pacchetti normali, dati generati a partire dal dataset completo}
 \end{table}
 
 
