@@ -164,6 +164,24 @@ Questa è la modalità opposta rispetto a quella precedentemente citata, dove si
 
 \section{Addestramento del modello}
 
+Per addestrare il modello XGBoost si è utilizzata la libreria annessa con i suoi parametri di fabbrica. Dopo il training, ogni modello è stato salvato in formato JSON per poi essere riutilizzato:
+
+\begin{python}
+model = xgb.XGBClassifier()
+# Addestra il modello
+model.fit(X_train, y_train)
+
+# Salva il moddello
+model.save_model(model_path)
+\end{python}
+
+La parte più onerosa, in termini computazionali, non è stata l'addestramento del modello bensì la generazione dei dati sintetici che, nel caso di CICIDS, ha impiegato diverse ore.
+
 \section{Calcolo delle metriche}
 
+Per il calcolo delle metriche si è utilizzato il metodo fornito da SCIkit-learn facendo classificare i pacchetti dal modello e confrontando i risultati con le etichette effettive del dataset. In questo modo si può osservare quanto il modello sia efficace per il rilevamento dei tipi di pacchetti.
+
+Abbiamo quindi raccolto le metriche sul modello addestrato con varie quantità di dati di partenza e di dati sintetici. In tablella~\ref{tab:risultati_metriche} sono mostrati i migliori risultati ottenuti per ogni metodo utilizzato riprendendo~\ref{tab:addes_gen}. Come si può osservare in generale, il moddello addestrato insieme ai dati sintetici ottiene risultati peggiori rispetto al modello senza dati aggiuntivi. Bisogna considerare inoltre, che la generazione dei dati OOD impiega molto tempo  anche su dataset non troppo complessi come ADFANET, quindi i miglioramenti non solo sono relativamente bassi ma in molte circostanze risultano essere deterioranti.
+
+La lista di dati completi può essere consultata nell'appendice \ref{appendix:metriche}.
 
