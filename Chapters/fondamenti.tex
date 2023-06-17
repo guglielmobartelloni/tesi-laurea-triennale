@@ -151,11 +151,11 @@ Ci sono vari algoritmi di questo tipo e.g. Support Vector Machine (SVM), Naïve 
 
 \subsubsection{Unsupervised Machine Learning}
 
-In questo caso, gli algoritmi di ML non hanno un dataset con classi etichettate. Questi algoritmi traovano delle relazioni tra i dati, cercando di raggrupparli in base a delle caratteristiche comuni.
+In questo caso, gli algoritmi di ML non hanno un dataset con classi etichettate. Questi algoritmi trovano delle relazioni tra i dati, cercando di raggrupparli in base a delle caratteristiche comuni.
 
 L'unsupervised machine learning mostra però basse prestazioni per quanto riguarda il rilevamento quindi non possono essere utilizzati come principale strumento per gli IDS. Il motivo di questo scarso rendimento è dovuto al fatto che è molto probabile generare dei Falsi Positivi (vengono rilevati attacchi quando in realtà non cene sono) oppure generare dei Falsi Negativi (non vengono rilevati attacchi quando in realtà ce ne sono) questo va a degradare le performance generali del modello.
 
-D'altra parte però questi modelli si sono dimostrati opinabilmente migliori per rilveare gli attacchi zero-day. ~\cite{UnsupervisedAlgorithmsDetect2021}.
+D'altra parte però questi modelli si sono dimostrati opinabilmente migliori per rilevare gli attacchi zero-day. ~\cite{UnsupervisedAlgorithmsDetect2021}.
 
 
 \section{XGboost}
@@ -173,7 +173,7 @@ Inoltre riesce a sfruttare al meglio la potenza di calcolo della macchina su cui
 
 Nella sua parte fondamentale XGBoost utilizza gli alberi di decisione.
 
-Un albero di decisione è uno strumento relativamente semplice per classificare i dati dove vengono poste delle domande che riguardano le features. Ogni domanda è contenuta in un nodo dell'albero, ed oguno di questi punta ad un figlio che rappresenta una possibile risposta.
+Un albero di decisione è uno strumento relativamente semplice per classificare i dati dove vengono poste delle domande che riguardano le features. Ogni domanda è contenuta in un nodo dell'albero, ed ognuno di questi punta ad un figlio che rappresenta una possibile risposta.
 In questo modo le domande formano una gerarchia (Figura \ref{fig:decision_tree}), codificata come un albero ~\cite{kingsfordWhatAreDecision2008}.
 
 
@@ -203,7 +203,7 @@ Questo è il più semplice dataset su cui sono stati effettuati i test.
 
 \subsection{CIDDS-18}
 
-Solitamnete i dataset non rappresentano al meglio la realtà, in quanto per motivi di privacy questi vengono offuscati e anonimizzati perdendo molta della diversificazione utile per l'addestramento di un modello.
+Solitamente i dataset non rappresentano al meglio la realtà, in quanto per motivi di privacy questi vengono offuscati e anonimizzati perdendo molta della diversificazione utile per l'addestramento di un modello.
 Per sopperire a queste mancanze è stato creato CIC-IDS cercando di mantenere il più possibile caratteristiche di uno scenario reale.
 Esso contiene una grande quantità di dati ricoprendo le principali tipologie di attacchi che si possono trovare in una rete, tra questi abbiamo DoS, DDoS, Brute Force, XSS, SQL Injection, Infiltrazione, Port scan e Botnet ~\cite{sharafaldinGeneratingNewIntrusion2018}.
 

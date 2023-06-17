@@ -1,10 +1,10 @@
 \chapter{Risultati}
 \label{chap:risultati}
 
-Di seguito verranno mostrati i dati più significativi prodotti atraverso del codice Python. Sono state utilizzate diverse librerie, tra cui:
+Di seguito verranno mostrati i dati più significativi prodotti attraverso del codice Python. Sono state utilizzate diverse librerie, tra cui:
 
 \begin{itemize}
-    \item Pandas e Numpy, per la manipolazione dei dataset
+   \item Pandas e Numpy, per la manipolazione dei dataset
     \item Plotly, per la visualizzazione dei dati
     \item UMAP, per la riduzione della dimensionalità dei dataset 
     \item SBO, per la generazione dei dati fuori dalla distribuzione
@@ -121,31 +121,11 @@ E' evidente che i pacchetti generati, siano troppo simili ai pacchetti normali e
 \end{figure}
 
 
-% \begin{figure}[htpb]
-%     \centering
-%     \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]{img/gen_test/adfa/ADFANET_normal_only_25k_ood.png}
-%     \caption{
-%       (Dataset ADFANET - Generazione da normali) Sono stati utilizzati 75 000 pacchetti in totale. Anche in questo caso si nota i medesimi problemi delle figure \ref{fig:gen_ADFA_norm_1} e \ref{fig:gen_ADFA_norm_1_zoomed}.
-%     }
-%     \label{fig:gen_ADFA_norm_2}
-% \end{figure}
-
-
-% \begin{figure}[htpb]
-%     \centering
-%     \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]{img/gen_test/adfa/ADFANET_normal_only_25k_ood_zoomed.png}
-%     \caption{
-%       (Dataset ADFANET - Generazione da normali) Versione ingrandita di \ref{fig:gen_ADFA_norm_2}.
-%     }
-%     \label{fig:gen_ADFA_norm_2_zoomed}
-% \end{figure}
-
-
 \begin{figure}[htpb]
     \centering
     \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]{img/gen_test/cicids/CICIDS18_normal_only_25p_ood.png}
     \caption{
-      (Dataset CICIDS - Generazione da normali) Si nota la maggiore complessita di questo dataset, ma si presentano gli stessi problemi di ADFANET.
+      (Dataset CICIDS - Generazione da normali) Si nota la maggiore complessità di questo dataset, ma si presentano gli stessi problemi di ADFANET.
     }
     \label{fig:gen_CICIDS_norm_1}
 \end{figure}
@@ -193,7 +173,7 @@ model = xgb.XGBClassifier()
 # Addestra il modello
 model.fit(X_train, y_train)
 
-# Salva il moddello
+# Salva il modello
 model.save_model(model_path)
 \end{python}
 
@@ -203,7 +183,7 @@ La parte più onerosa, in termini computazionali, non è stata l'addestramento d
 
 Per il calcolo delle metriche si è utilizzato il metodo fornito da SCIkit-learn per il Matthews Correlation Coefficient facendo classificare i pacchetti al modello e confrontando i risultati con le etichette effettive del dataset. In questo modo si può osservare quanto il modello sia efficace per il rilevamento dei tipi di pacchetti.
 
-Abbiamo quindi raccolto le metriche sul modello addestrato con varie quantità di dati di partenza e di dati sintetici. Ogni modello poi è stato testato per dieci volte ed è stata fatta la media della metrica MCC. Nelle tablelle~\ref{tab:risultati_metriche_ADFA} e~\ref{tab:risultati_metriche_CICIDS} sono mostrati i migliori risultati ottenuti, presi come il massimo del valore assoluto dei punteggi, per ogni metodo utilizzato riprendendo~\ref{tab:addes_gen}. Come si può osservare, molto spesso, il moddello addestrato insieme ai dati sintetici ottiene risultati peggiori rispetto al modello senza dati aggiuntivi. I miglioramenti si hanno, anche se in piccola percentuale, quando il dataset è semplice (ADFANET) e i dati si generano a partire da pacchetti di attacco.
+Abbiamo quindi raccolto le metriche sul modello addestrato con varie quantità di dati di partenza e di dati sintetici. Ogni modello poi è stato testato per dieci volte ed è stata fatta la media della metrica MCC. Nelle tabelle~\ref{tab:risultati_metriche_ADFA} e~\ref{tab:risultati_metriche_CICIDS} sono mostrati i migliori risultati ottenuti, presi come il massimo del valore assoluto dei punteggi, per ogni metodo utilizzato riprendendo~\ref{tab:addes_gen}. Come si può osservare, molto spesso, il modello addestrato insieme ai dati sintetici ottiene risultati peggiori rispetto al modello senza dati aggiuntivi. I miglioramenti si hanno, anche se in piccola percentuale, quando il dataset è semplice (ADFANET) e i dati si generano a partire da pacchetti di attacco.
 Quando invece il dataset è complesso, come nel caso di CICIDS, il modello tende a peggiorare.
 Oltretutto, il modello addestrato con soli pacchetti normali insieme ai pacchetti sintetici, ha delle prestazioni molto basse arrivando anche a non riconoscere più i tipi di pacchetti.
 
