@@ -36,6 +36,8 @@
 \newcommand{\myTime}{Anno Accademico 2022-2023\xspace}
 \newcommand{\myVersion}{Version 0.1\xspace}
 %--------------------------------------------------------------
+\usepackage[title]{appendix}
+
 \usepackage[italian]{babel}
 \usepackage[utf8]{inputenc} 
 \usepackage[T1]{fontenc} 
@@ -128,6 +130,11 @@ parts]{classicthesis}
 \include{Chapters/generazione_di_attacchi_usando_sbo}
 \include{Chapters/Risultati}
 \include{Chapters/Conclusioni}
+\begin{appendices}
+\section{Appendice Metriche}\label{appendix:metriche}
+  I risultati in formato CSV possono essere consultati al sequente indirizzo \href{https://github.com/guglielmobartelloni/thesis-utils/tree/main/results}{https://github.com/guglielmobartelloni/thesis-utils/tree/main/results} insieme ai modelli addestrati e i grafici dei dati.
+\end{appendices}
+
 \bibliographystyle{ieeetr}
 \bibliography{biblio}
 %--------------------------------------------------------------
