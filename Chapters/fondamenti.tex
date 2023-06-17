@@ -16,7 +16,7 @@ Questi strumenti sono essenziali per tenere al sicuro le persone da attacchi inf
     \item Tracciare le violazioni delle policy utente
     \item Analizzare le configurazioni e le vulnerabilità del sistema
     \item Rilevare tipici attacchi di rete
-    \item Analizzare di attività anomale
+    \item Analizzare attività anomale
 \end{itemize}
 
 
@@ -122,7 +122,7 @@ Il modello viene addestrato su un dataset con classi conosciute e cerca di trova
 In particolare un classificatore mappa una funzione: 
 
 \[
-f(x_1,\ldots x_S) = \hat y
+  f(x_1,\ldots x_S) \leftrightarrow \overline{y}
 \]
 
 che assegna uno scalare facente parte di un insieme $C$ di elementi disgiunti (le classi), ad un insieme di $S$ elementi vettoriali (le caratteristiche) ~\cite{hoffmannBenchmarkingClassificationRegression2019}.
@@ -131,7 +131,7 @@ che assegna uno scalare facente parte di un insieme $C$ di elementi disgiunti (l
 Nella regressione invece, si cerca di approssimare la funzione: 
 
 \[
-f(x_1,\ldots x_S) = y
+f(x_1,\ldots x_S) \leftrightarrow y
 \]
 
 a partire dalle caratteristiche. La funzione $f$ è approssimata utilizzando varie tecniche di interpolazione, estrapolazione, analisi di regressione e curve fitting ~\cite{hoffmannBenchmarkingClassificationRegression2019}.
@@ -162,12 +162,12 @@ D'altra parte però questi modelli si sono dimostrati opinabilmente migliori per
 
 XGBoost (eXtreme Gradient Boosting) è un algoritmo di Machine Learning che utilizza alberi di decisione per la classificazione e la regressione. 
 
-Nel mondo reale è utilizzato anche la predizione dei click per le pubblicità  ~\cite{hePracticalLessonsPredicting2014} e come algoritmo per le competizioni su Kaggle ~\cite{chenXGBoostScalableTree2016}.
+Nel mondo reale è utilizzato anche per la predizione dei click per le pubblicità  ~\cite{hePracticalLessonsPredicting2014} e come algoritmo per le competizioni su Kaggle ~\cite{chenXGBoostScalableTree2016}.
 
 
 Il suo punto di forza principale è la grande scalabilità in tutti gli scenari. XGBoost ha prestazioni superiori di dieci volte rispetto alle soluzioni esistenti.
 Inoltre riesce a sfruttare al meglio la potenza di calcolo della macchina su cui viene eseguito ~\cite{chenXGBoostScalableTree2016}.
-È stato scelto XGBoost come algoritmo in questa tesi per i motivi sopra citati.
+È stato scelto questo modello per i motivi sopra citati.
 
 \subsection{Alberi di Decisione}
 
@@ -193,7 +193,7 @@ L'algoritmo più conosciuto che utilizza alberi di decisione è il C4.5 ~\cite{s
 
 \section{Dataset}
 
-I dataset sono un insieme di dati utilizzati per l'addestramento e il test dei modelli di ML. In questa tesi sono stati utilizzati tre dataset: ADFA-NET, CIDDS e CIC-IDS18.
+I dataset sono un insieme di dati utilizzati per l'addestramento e il test dei modelli di ML. In questa tesi sono stati utilizzati due dataset: ADFA-NET, CIDDS-18.
 
 \subsection{ADFA-NET}
 

@@ -12,7 +12,7 @@ Partendo da quest'ultimo algoritmo, SBO permette di utilizzare qualsiasi punto d
 
 Soft Browninan Offset è ispirato al moto browniano e traduce il concetto nella sua rappresentazione in $R^D$ usando le ipersfere.
 
-L'algoritmo cerca di traslare i punti, iterativamente, in modo da avere una distanza minima chiamata $d_{min}$ dal punto originale. All'aumentare del valore $d_{min}$ si aumenta quindi la distanza dei punti sintentici dai punti originali, questo lo si può notare dalla figura \ref{fig:sbo_dmin} dove è presente anche il parametro $softness$ utilizzato per regolare il riempimento delle aree vuote.
+In particolare, l'algoritmo cerca di traslare i punti iterativamente in modo da avere una distanza minima chiamata $d_{min}$ dal punto originale. All'aumentare del valore $d_{min}$ si aumenta quindi la distanza dei punti sintentici dai punti originali, questo lo si può notare dalla figura \ref{fig:sbo_dmin} dove è presente anche il parametro $softness$ utilizzato per regolare il riempimento delle aree vuote.
 
 
 \begin{figure}[htpb]
@@ -60,7 +60,7 @@ La figura \ref{fig:ae_schema} mostra il processo del modello autoencoder.
 \end{figure}
 
 
-L'approccio utilizzato per Soft Brownian Offset è quello di addestrare un autoencoder sul dataset di partenza, riducendo lo spazio di lavoro utilizzando l'encoder, generare i dati OOD ed infine ricostruire il dataset attraverso il decoder. In questo modo il dataset è più semplice da elaborare.
+L'approccio utilizzato per Soft Brownian Offset è quello di addestrare un autoencoder sul dataset di partenza, ridurre lo spazio di lavoro usando l'encoder, generare i dati OOD ed infine ricostruire il dataset attraverso il decoder.
 
 
 

@@ -1,1 +1,26 @@
 \chapter{Conclusioni}
+
+In questa tesi è stato utilizzato Soft Brownian Offset, un metodo di Data Augmentation per la generazione di dati sintetici al fine di addestrare un modello di Machine Learning per il rilevamento di attacchi informatici. 
+
+L'utilizzo di dati generati si rende necessario quando non si hanno a disposizione abbastanza informazioni sugli attacchi, ma si ha a dispozione tanti dati di traffico comune in una rete. 
+
+Tramite Soft Brownian Offset si è cercato di generare dei pacchetti di rete che rappresentassero, il più possibile, dei dati di attacco in modo tale da poter migliorare il rilevamento di quest'ultimi da parte di un modello di classificazione.
+
+Utilizzando due dataset, uno complesso ``CICIDS'' e, uno semplice ``AdfaNet'' si è esplorato vari tipi di generazione a seconda della tipologia dei dati di partenza. I vari approcci sono stati quelli di generare i dati sintetici a partire da:
+
+\begin{itemize}
+  \item solo pacchetti di attacco
+  \item solo pacchetti normali
+  \item sia pacchetti di attacco che pacchetti normali
+\end{itemize}
+
+Facendo poi una valutazione qualitativa dei dati generati tramite dei grafici in due dimensioni, si è potuto notare come i vari approcci si comportavano. Abbiamo osservato come la strategia partendo da solo pacchetti di attacco risultava essere quella in cui i dati sintetici si avvicinano maggiornamente agli attacchi in una rete. Questo però risulta essere efficace solo nel caso di un dataset semplice come ADFANET, nel caso di un dataset complesso come CICIDS invece, l'intricatezza dei dati dava dei risultati inconcludenti a livello qualitativo.
+
+La conferma della valutazione qulitativa la si è avuta dopo il test degli approcci sul modello XGBoost dove si è potuto notare come il metodo, partendo dai dati di attacco, sia effettivamente il migliore per dataset semplici.
+Differentemente, per dataset complessi, le tecniche di generazione tramite Soft Brownian Offset hanno portato ad un peggioramento del modello, arrivando a perdere anche un punto percentuale nella valutazione.
+
+Si è testato inoltre un addestramento del modello a partire solo dai dati normali, anzichè partire dal dataset completo. In questo modo, le prestazioni sono risultate ben peggiori in quanto il modello sembra non riuscire più a distingure in maniera ottimale la tipologia dei vari pacchetti.
+
+In conclusione, la tecnica di Data Augmentation utilizzata da SBO risulta essere efficace solo nel caso in cui il dataset sia non complesso. Se i dataset invece risultano essere troppo complessi presentando molte features, Soft Brownian Offset si dimostra infruttuoso.
+
+In quest'utimi casi è necessario rivolgersi ad altre tecniche di generazione che potrebbero essere più indicate.

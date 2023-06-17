@@ -203,7 +203,11 @@ La parte più onerosa, in termini computazionali, non è stata l'addestramento d
 
 Per il calcolo delle metriche si è utilizzato il metodo fornito da SCIkit-learn per il Matthews Correlation Coefficient facendo classificare i pacchetti al modello e confrontando i risultati con le etichette effettive del dataset. In questo modo si può osservare quanto il modello sia efficace per il rilevamento dei tipi di pacchetti.
 
-Abbiamo quindi raccolto le metriche sul modello addestrato con varie quantità di dati di partenza e di dati sintetici. Ogni modello poi è stato testato per dieci volte ed è stata fatta la media della metrica MCC. Nelle tablelle~\ref{tab:risultati_metriche_ADFA} e~\ref{tab:risultati_metriche_CICIDS} sono mostrati i migliori risultati ottenuti per ogni metodo utilizzato riprendendo~\ref{tab:addes_gen}. Come si può osservare in generale, il moddello addestrato insieme ai dati sintetici ottiene risultati peggiori rispetto al modello senza dati aggiuntivi. Bisogna considerare inoltre, che la generazione dei dati OOD impiega molto tempo  anche su dataset non troppo complessi come ADFANET, quindi i miglioramenti non solo sono relativamente bassi ma in molte circostanze risultano essere deterioranti.
+Abbiamo quindi raccolto le metriche sul modello addestrato con varie quantità di dati di partenza e di dati sintetici. Ogni modello poi è stato testato per dieci volte ed è stata fatta la media della metrica MCC. Nelle tablelle~\ref{tab:risultati_metriche_ADFA} e~\ref{tab:risultati_metriche_CICIDS} sono mostrati i migliori risultati ottenuti, presi come il massimo del valore assoluto dei punteggi, per ogni metodo utilizzato riprendendo~\ref{tab:addes_gen}. Come si può osservare, molto spesso, il moddello addestrato insieme ai dati sintetici ottiene risultati peggiori rispetto al modello senza dati aggiuntivi. I miglioramenti si hanno, anche se in piccola percentuale, quando il dataset è semplice (ADFANET) e i dati si generano a partire da pacchetti di attacco.
+Quando invece il dataset è complesso, come nel caso di CICIDS, il modello tende a peggiorare.
+Oltretutto, il modello addestrato con soli pacchetti normali insieme ai pacchetti sintetici, ha delle prestazioni molto basse arrivando anche a non riconoscere più i tipi di pacchetti.
+
+Bisogna considerare inoltre, che la generazione dei dati OOD impiega molto tempo  anche su dataset non troppo complessi come ADFANET, quindi i miglioramenti non solo sono relativamente bassi ma anche onerosi.
 
 
 \begin{table}\centering\setlength\tabcolsep{3.5pt}\renewcommand\arraystretch{1.25}
